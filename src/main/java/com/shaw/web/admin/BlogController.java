@@ -21,16 +21,15 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.http.HttpSession;
 
 /**
- * Created by limi on 2017/10/15.
+ * @author shaw
+ * @date 2017/10/16
  */
 @Controller
 @RequestMapping("/admin")
 public class BlogController {
-
     private static final String INPUT = "admin/blogs-input";
     private static final String LIST = "admin/blogs";
     private static final String REDIRECT_LIST = "redirect:/admin/blogs";
-
 
     @Autowired
     private BlogService blogService;
@@ -54,7 +53,6 @@ public class BlogController {
         return "admin/blogs :: blogList";
     }
 
-
     @GetMapping("/blogs/input")
     public String input(Model model) {
         setTypeAndTag(model);
@@ -67,17 +65,14 @@ public class BlogController {
         model.addAttribute("tags", tagService.listTag());
     }
 
-
     @GetMapping("/blogs/{id}/input")
     public String editInput(@PathVariable Long id, Model model) {
         setTypeAndTag(model);
         Blog blog = blogService.getBlog(id);
         blog.init();
-        model.addAttribute("blog",blog);
+        model.addAttribute("blog", blog);
         return INPUT;
     }
-
-
 
     @PostMapping("/blogs")
     public String post(Blog blog, RedirectAttributes attributes, HttpSession session) {
@@ -86,12 +81,12 @@ public class BlogController {
         blog.setTags(tagService.listTag(blog.getTagIds()));
         Blog b;
         if (blog.getId() == null) {
-            b =  blogService.saveBlog(blog);
+            b = blogService.saveBlog(blog);
         } else {
             b = blogService.updateBlog(blog.getId(), blog);
         }
 
-        if (b == null ) {
+        if (b == null) {
             attributes.addFlashAttribute("message", "操作失败");
         } else {
             attributes.addFlashAttribute("message", "操作成功");
@@ -99,14 +94,10 @@ public class BlogController {
         return REDIRECT_LIST;
     }
 
-
     @GetMapping("/blogs/{id}/delete")
-    public String delete(@PathVariable Long id,RedirectAttributes attributes) {
+    public String delete(@PathVariable Long id, RedirectAttributes attributes) {
         blogService.deleteBlog(id);
         attributes.addFlashAttribute("message", "删除成功");
         return REDIRECT_LIST;
     }
-
-
-
 }

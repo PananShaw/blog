@@ -15,11 +15,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/16.
+ * @author shaw
+ * @date 2017/10/16
  */
 @Service
 public class TypeServiceImpl implements TypeService {
-
     @Autowired
     private TypeRepository typeRepository;
 
@@ -51,14 +51,12 @@ public class TypeServiceImpl implements TypeService {
         return typeRepository.findAll();
     }
 
-
     @Override
     public List<Type> listTypeTop(Integer size) {
-        Sort sort = new Sort(Sort.Direction.DESC,"blogs.size");
-        Pageable pageable = new PageRequest(0,size,sort);
+        Sort sort = new Sort(Sort.Direction.DESC, "blogs.size");
+        Pageable pageable = new PageRequest(0, size, sort);
         return typeRepository.findTop(pageable);
     }
-
 
     @Transactional
     @Override
@@ -67,10 +65,9 @@ public class TypeServiceImpl implements TypeService {
         if (t == null) {
             throw new NotFoundException("不存在该类型");
         }
-        BeanUtils.copyProperties(type,t);
+        BeanUtils.copyProperties(type, t);
         return typeRepository.save(t);
     }
-
 
 
     @Transactional

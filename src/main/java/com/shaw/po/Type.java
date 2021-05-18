@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/14.
+ * @author shaw
+ * @date 2017/10/14
  */
 @Entity
 @Table(name = "t_type")
 public class Type {
-
     @Id
     @GeneratedValue
     private Long id;

@@ -21,12 +21,11 @@ import javax.persistence.criteria.*;
 import java.util.*;
 
 /**
- * Created by limi on 2017/10/20.
+ * @author shaw
+ * @date 2017/10/20
  */
 @Service
 public class BlogServiceImpl implements BlogService {
-
-
     @Autowired
     private BlogRepository blogRepository;
 
@@ -43,14 +42,13 @@ public class BlogServiceImpl implements BlogService {
             throw new NotFoundException("该博客不存在");
         }
         Blog b = new Blog();
-        BeanUtils.copyProperties(blog,b);
+        BeanUtils.copyProperties(blog, b);
         String content = b.getContent();
         b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
 
         blogRepository.updateViews(id);
         return b;
     }
-
 
     @Override
     public Page<Blog> listBlog(Pageable pageable, BlogQuery blog) {
@@ -59,7 +57,7 @@ public class BlogServiceImpl implements BlogService {
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
                 if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
-                    predicates.add(cb.like(root.<String>get("title"), "%"+blog.getTitle()+"%"));
+                    predicates.add(cb.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
                 }
                 if (blog.getTypeId() != null) {
                     predicates.add(cb.equal(root.<Type>get("type").get("id"), blog.getTypeId()));
@@ -70,7 +68,7 @@ public class BlogServiceImpl implements BlogService {
                 cq.where(predicates.toArray(new Predicate[predicates.size()]));
                 return null;
             }
-        },pageable);
+        }, pageable);
     }
 
     @Override
@@ -84,19 +82,19 @@ public class BlogServiceImpl implements BlogService {
             @Override
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 Join join = root.join("tags");
-                return cb.equal(join.get("id"),tagId);
+                return cb.equal(join.get("id"), tagId);
             }
-        },pageable);
+        }, pageable);
     }
 
     @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
-        return blogRepository.findByQuery(query,pageable);
+        return blogRepository.findByQuery(query, pageable);
     }
 
     @Override
     public List<Blog> listRecommendBlogTop(Integer size) {
-        Sort sort = new Sort(Sort.Direction.DESC,"updateTime");
+        Sort sort = new Sort(Sort.Direction.DESC, "updateTime");
         Pageable pageable = new PageRequest(0, size, sort);
         return blogRepository.findTop(pageable);
     }
@@ -115,7 +113,6 @@ public class BlogServiceImpl implements BlogService {
     public Long countBlog() {
         return blogRepository.count();
     }
-
 
     @Transactional
     @Override
@@ -137,7 +134,7 @@ public class BlogServiceImpl implements BlogService {
         if (b == null) {
             throw new NotFoundException("该博客不存在");
         }
-        BeanUtils.copyProperties(blog,b, MyBeanUtils.getNullPropertyNames(blog));
+        BeanUtils.copyProperties(blog, b, MyBeanUtils.getNullPropertyNames(blog));
         b.setUpdateTime(new Date());
         return blogRepository.save(b);
     }

@@ -12,17 +12,17 @@ import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
 
 /**
- * Created by limi on 2017/10/13.
+ * @author shaw
+ * @date 2017/10/13
  */
 @Aspect
 @Component
 public class LogAspect {
-
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Pointcut("execution(* com.shaw.web.*.*(..))")
-    public void log() {}
-
+    public void log() {
+    }
 
     @Before("log()")
     public void doBefore(JoinPoint joinPoint) {
@@ -41,7 +41,7 @@ public class LogAspect {
 //        logger.info("--------doAfter--------");
     }
 
-    @AfterReturning(returning = "result",pointcut = "log()")
+    @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterRuturn(Object result) {
         logger.info("Result : {}", result);
     }

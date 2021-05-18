@@ -7,11 +7,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Created by limi on 2017/10/23.
+ * @author shaw
+ * @date 2017/10/16
  */
 @Controller
 public class ArchiveShowController {
-
     @Autowired
     private BlogService blogService;
 

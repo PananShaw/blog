@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/23.
+ * @author shaw
+ * @date 2017/10/16
  */
 @Controller
 public class TypeShowController {
-
     @Autowired
     private TypeService typeService;
 
@@ -32,7 +32,7 @@ public class TypeShowController {
                         @PathVariable Long id, Model model) {
         List<Type> types = typeService.listTypeTop(10000);
         if (id == -1) {
-           id = types.get(0).getId();
+            id = types.get(0).getId();
         }
         BlogQuery blogQuery = new BlogQuery();
         blogQuery.setTypeId(id);

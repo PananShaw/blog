@@ -16,11 +16,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/16.
+ * @author shaw
+ * @date 2017/10/16
  */
 @Service
 public class TagServiceImpl implements TagService {
-
     @Autowired
     private TagRepository tagRepository;
 
@@ -59,7 +59,6 @@ public class TagServiceImpl implements TagService {
         return tagRepository.findTop(pageable);
     }
 
-
     @Override
     public List<Tag> listTag(String ids) { //1,2,3
         return tagRepository.findAll(convertToList(ids));
@@ -69,13 +68,12 @@ public class TagServiceImpl implements TagService {
         List<Long> list = new ArrayList<>();
         if (!"".equals(ids) && ids != null) {
             String[] idarray = ids.split(",");
-            for (int i=0; i < idarray.length;i++) {
-                list.add(new Long(idarray[i]));
+            for (String s : idarray) {
+                list.add(new Long(s));
             }
         }
         return list;
     }
-
 
     @Transactional
     @Override
@@ -84,11 +82,9 @@ public class TagServiceImpl implements TagService {
         if (t == null) {
             throw new NotFoundException("不存在该标签");
         }
-        BeanUtils.copyProperties(tag,t);
+        BeanUtils.copyProperties(tag, t);
         return tagRepository.save(t);
     }
-
-
 
     @Transactional
     @Override

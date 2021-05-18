@@ -7,10 +7,10 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/16.
+ * @author shaw
+ * @date 2017/10/16
  */
 public interface TypeService {
-
     Type saveType(Type type);
 
     Type getType(Long id);
@@ -23,7 +23,7 @@ public interface TypeService {
 
     List<Type> listTypeTop(Integer size);
 
-    Type updateType(Long id,Type type);
+    Type updateType(Long id, Type type);
 
     void deleteType(Long id);
 }

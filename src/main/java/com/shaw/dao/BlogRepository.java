@@ -12,7 +12,9 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- * Created by limi on 2017/10/20.
+ *
+ * @author shaw
+ * @date 2017/10/20
  */
 public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificationExecutor<Blog> {
 

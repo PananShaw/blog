@@ -1,10 +1,10 @@
 package com.shaw.vo;
 
 /**
- * Created by limi on 2017/10/20.
+ * @author shaw
+ * @date 2017/10/16
  */
 public class BlogQuery {
-
     private String title;
     private Long typeId;
     private boolean recommend;

@@ -9,10 +9,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by limi on 2017/10/20.
+ * @author shaw
+ * @date 2017/10/20
  */
 public interface BlogService {
-
     Blog getBlog(Long id);
 
     Blog getAndConvert(Long id);
