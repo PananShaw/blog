@@ -17,13 +17,11 @@ import java.util.List;
  * @date 2017/10/20
  */
 public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificationExecutor<Blog> {
-
     @Query("select b from Blog b where b.recommend = true")
     List<Blog> findTop(Pageable pageable);
 
     @Query("select b from Blog b where b.title like ?1 or b.content like ?1")
     Page<Blog> findByQuery(String query,Pageable pageable);
-
 
     @Transactional
     @Modifying

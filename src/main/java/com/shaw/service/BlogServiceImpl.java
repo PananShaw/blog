@@ -45,7 +45,6 @@ public class BlogServiceImpl implements BlogService {
         BeanUtils.copyProperties(blog, b);
         String content = b.getContent();
         b.setContent(MarkdownUtils.markdownToHtmlExtensions(content));
-
         blogRepository.updateViews(id);
         return b;
     }
@@ -57,7 +56,7 @@ public class BlogServiceImpl implements BlogService {
             public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
                 if (!"".equals(blog.getTitle()) && blog.getTitle() != null) {
-                    predicates.add(cb.like(root.<String>get("title"), "%" + blog.getTitle() + "%"));
+                    predicates.add(cb.like(root.get("title"), "%" + blog.getTitle() + "%"));
                 }
                 if (blog.getTypeId() != null) {
                     predicates.add(cb.equal(root.<Type>get("type").get("id"), blog.getTypeId()));
@@ -102,7 +101,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Map<String, List<Blog>> archiveBlog() {
         List<String> years = blogRepository.findGroupYear();
-        Map<String, List<Blog>> map = new HashMap<>();
+        Map<String, List<Blog>> map = new HashMap<>(16);
         for (String year : years) {
             map.put(year, blogRepository.findByYear(year));
         }
