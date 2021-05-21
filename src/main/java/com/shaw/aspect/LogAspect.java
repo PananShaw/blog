@@ -36,15 +36,11 @@ public class LogAspect {
         logger.info("Request : {}", requestLog);
     }
 
-    @After("log()")
-    public void doAfter() {
-//        logger.info("--------doAfter--------");
-    }
-
     @AfterReturning(returning = "result", pointcut = "log()")
     public void doAfterRuturn(Object result) {
         logger.info("Result : {}", result);
     }
+
 
     private class RequestLog {
         private String url;

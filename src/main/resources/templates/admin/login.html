@@ -12,6 +12,7 @@
 <br>
 <br>
 <br>
+
  <div class="m-container-small m-padded-tb-massive" style="max-width: 30em !important;">
    <div class="ur container">
      <div class="ui middle aligned center aligned grid">
@@ -40,9 +41,7 @@
 
            <div class="ui error mini message"></div>
            <div class="ui mini negative message" th:unless="${#strings.isEmpty(message)}" th:text="${message}">用户名和密码错误</div>
-
          </form>
-
        </div>
      </div>
    </div>
@@ -73,6 +72,5 @@
     }
   });
 </script>
-
 </body>
 </html>
