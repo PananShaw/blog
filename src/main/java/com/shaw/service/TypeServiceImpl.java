@@ -69,7 +69,6 @@ public class TypeServiceImpl implements TypeService {
         return typeRepository.save(t);
     }
 
-
     @Transactional
     @Override
     public void deleteType(Long id) {

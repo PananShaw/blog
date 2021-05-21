@@ -41,7 +41,6 @@ public class LogAspect {
         logger.info("Result : {}", result);
     }
 
-
     private class RequestLog {
         private String url;
         private String ip;
@@ -65,5 +64,4 @@ public class LogAspect {
                     '}';
         }
     }
-
 }
